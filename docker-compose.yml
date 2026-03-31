@@ -6,7 +6,7 @@ services:
     environment:
       discovery.type: single-node
       node.name: opensearch
-      OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+      OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m  # Minimum & Maximum heap size = 512 MB
       OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_PASSWORD}
     volumes:
       - opensearch-data:/usr/share/opensearch/data
