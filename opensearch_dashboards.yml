@@ -1,0 +1,6 @@
+opensearch.hosts: ["https://opensearch:9200"]  # Where to find the open search cluster rest API
+opensearch.username: admin
+opensearch.password: ${OPENSEARCH_DASHBOARD_PASSWORD}
+opensearch.ssl.verificationMode: none
+server.host: 0.0.0.0
+server.port: 5601

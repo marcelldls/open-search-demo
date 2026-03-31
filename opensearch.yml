@@ -1,0 +1,4 @@
+discovery.type: single-node  # Requires a restart to chage
+node.name: opensearch
+network.host: 0.0.0.0
+http.port: 9200
