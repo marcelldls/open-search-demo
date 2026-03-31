@@ -6,8 +6,8 @@ services:
     environment:
       discovery.type: single-node
       node.name: opensearch
-      OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m  # Minimum & Maximum heap size = 512 MB
-      OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_PASSWORD}
+      OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m  # Minimum & Maximum heap size = 512 MB. Xms == Xmx is recommended
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_PASSWORD}  # User: "Admin"
     volumes:
       - opensearch-data:/usr/share/opensearch/data
     ports:
@@ -23,7 +23,7 @@ services:
     expose:
       - 5601
     environment:
-      OPENSEARCH_HOSTS: '["https://opensearch:9200"]'
+      OPENSEARCH_HOSTS: '["https://opensearch:9200"]'  # Where to find the open search cluster
     networks:
       - opensearch-net
     depends_on:
