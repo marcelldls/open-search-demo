@@ -1,0 +1,3 @@
+opensearch.hosts: ["https://opensearch:9200"]  # Where to find the open search cluster
+opensearch.username: admin
+opensearch.password: ${OPENSEARCH_DASHBOARD_PASSWORD}

@@ -4,12 +4,11 @@ services:
     image: opensearchproject/opensearch:${OPENSEARCH_VERSION:-latest}
     container_name: opensearch
     environment:
-      discovery.type: single-node
-      node.name: opensearch
       OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m  # Minimum & Maximum heap size = 512 MB. Xms == Xmx is recommended
       OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_PASSWORD}  # User: "Admin"
     volumes:
       - opensearch-data:/usr/share/opensearch/data
+      - ./opensearch.yml:/usr/share/opensearch/config/opensearch.yml
     ports:
       - 9200:9200
       - 9600:9600
@@ -20,10 +19,12 @@ services:
     container_name: opensearch-dashboards
     ports:
       - 5601:5601
+    volumes:
+      - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
     expose:
       - 5601
     environment:
-      OPENSEARCH_HOSTS: '["https://opensearch:9200"]'  # Where to find the open search cluster
+      OPENSEARCH_DASHBOARD_PASSWORD: ${OPENSEARCH_DASHBOARD_PASSWORD}
     networks:
       - opensearch-net
     depends_on:
