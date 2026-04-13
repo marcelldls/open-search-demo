@@ -1,4 +1,4 @@
-
+# https://docs.opensearch.org/latest/install-and-configure/install-opensearch/docker/#sample-docker-composeyml
 services:
   opensearch:
     image: opensearchproject/opensearch:${OPENSEARCH_VERSION:-latest}
@@ -6,9 +6,21 @@ services:
     environment:
       OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m  # Minimum & Maximum heap size = 512 MB. Xms == Xmx is recommended
       OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_PASSWORD}  # User: "Admin"
+    ulimits:
+      memlock:  # how much memory a process is allowed to lock into RAM so the kernel will never swap it out.
+        soft: -1
+        hard: -1
+      nofile:  # how many file descriptors the process may have open at once.
+        soft: 65536
+        hard: 65536
     volumes:
       - opensearch-data:/usr/share/opensearch/data  # This is a named volume, not a file mount
       - ./opensearch.yml:/usr/share/opensearch/config/opensearch.yml
+      # - ./root-ca.pem:/usr/share/opensearch/config/root-ca.pem
+      # - ./admin.pem:/usr/share/opensearch/config/admin.pem
+      # - ./admin-key.pem:/usr/share/opensearch/config/admin-key.pem
+      # - ./node1.pem:/usr/share/opensearch/config/node1.pem
+      # - ./node1-key.pem:/usr/share/opensearch/config/node1-key.pem
     ports:
       - 9200:9200
       - 9600:9600
