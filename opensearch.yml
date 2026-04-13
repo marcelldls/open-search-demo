@@ -1,4 +1,8 @@
-discovery.type: single-node  # Requires a restart to chage
+discovery.type: single-node  # Requires a restart to change but is safe
+cluster.name: opensearch-cluster
 node.name: opensearch
-network.host: 0.0.0.0
+network.host: 0.0.0.0  # combines (network.bind_host and network.publish_host)
+# network.bind_host  # when server has multiple Network Interface Card
 http.port: 9200
+bootstrap.memory_lock: true   # Disable JVM heap memory swapping
+plugins.security.disabled: false  # Note: Security plugin is installed by default
